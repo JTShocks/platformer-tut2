@@ -7,6 +7,7 @@ public class scr_playerController : MonoBehaviour
 private Rigidbody2D rb;
 public float speed;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,6 @@ public float speed;
     {
         float hozMovement = Input.GetAxis("Horizontal");
         float vertMovement = Input.GetAxis("Vertical");
-        rb.transform.position = (rb.transform.position) + (new Vector3(hozMovement * speed * Time.deltaTime, vertMovement * speed * Time.deltaTime, 0));
+        rb.AddForce(new Vector2(hozMovement * speed, vertMovement * speed));
     }
 }
