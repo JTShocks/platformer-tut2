@@ -15,6 +15,7 @@ private int livesCount = 0;
 public AudioClip itemGrab;
 public AudioClip musicClip;
 public AudioSource musicSource;
+public AudioSource stageMusic;
 
 public Animator anim;
 private bool facingRight = true;
@@ -29,6 +30,9 @@ private bool isRunning;
         score.text = scoreValue.ToString();
         livesCount = 3;
         lives.text = livesCount.ToString();
+        stageMusic.clip = musicClip;
+        stageMusic.Play();
+        stageMusic.loop = true;
     }
 
     // Update is called once per frame
@@ -46,7 +50,24 @@ private bool isRunning;
         {
             anim.SetInteger("State", 0);
         }
-
+        if(rb.velocity.y > 0)
+        {
+           anim.SetInteger("State", 3);
+        }
+        if (rb.velocity.y < 0){
+            anim.SetInteger("State",4);
+        }
+        if (rb.velocity.y == 0)
+        {
+            if(hozMovement != 0)
+        {
+            anim.SetInteger("State", 2);
+        }
+        else
+        {
+            anim.SetInteger("State", 0);
+        }}
+        
         if (facingRight == false && hozMovement > 0)
         {
             Flip();
@@ -77,15 +98,7 @@ private bool isRunning;
             if (Input.GetKey(KeyCode.W))
             {
                 rb.AddForce(new Vector2(0, 3), ForceMode2D.Impulse); //the 3 in this line of code is the player's "jumpforce," and you change that number to get different jump behaviors
-                while (rb.velocity.y > 0)
-                {
-                    anim.SetInteger("State", 3);
-                }
             }
-            else
-            {
-            anim.SetInteger("State", 0);
-            }   
         }
     }
     private void Flip()
@@ -95,4 +108,5 @@ private bool isRunning;
         Scaler.x = Scaler.x *-1;
         transform.localScale = Scaler;
     }
+
 }
