@@ -100,10 +100,14 @@ private bool isRunning;
 
             if(scoreValue == 4)
             {
-                currentLevel = 2;
+                currentLevel++;
                 livesCount = 3;
                 lives.text = "Lives: " + livesCount.ToString(); 
                 Respawn(currentLevel);
+            } else if (scoreValue == 8)
+            {
+                gameState.text = "You won! You grabbed all the coins!";
+
             }
         }
 
@@ -115,6 +119,11 @@ private bool isRunning;
             livesCount -= 1;
             lives.text = "Lives: " + livesCount.ToString();
             Respawn(currentLevel);
+            if(livesCount == 0)
+            {
+                gameState.text = "You lose!";
+                Destroy(this);
+            }
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
